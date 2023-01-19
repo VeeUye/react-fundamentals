@@ -7,31 +7,32 @@
   <script src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
   <script type="text/babel">
-    const Message = ({children, className}) => {
-      return <div className="message">{children}</div>
+    const PropTypes = {
+      string(props, propName, componentName) {
+        const type = typeof props[propName]
+        if (type !== 'string') {
+          return new Error('Proptype error, this prop should be a string')
+        }
+      },
+    }
+    const Message = ({subject, greeting}) => {
+      return (
+        <div className="message">
+          {greeting}, {subject}
+        </div>
+      )
+    }
+
+    Message.propTypes = {
+      subject: PropTypes.string,
+      greeting: PropTypes.string,
     }
 
     const element = (
-      <>
-        <div className="container">
-          {Message({children: 'Hello World 1'})}
-          {Message({className: 'message', children: `Goodbye World`})}
-          <br></br>
-        </div>
-        <div className="container2">
-          {React.createElement(Message, {
-            children: 'Hello World 2',
-          })}
-          {React.createElement(Message, {
-            children: 'Goodbye World',
-          })}
-          <br></br>
-        </div>
-        <div className="container3">
-          <Message>Hello World 3</Message>
-          <Message>Goodbye World</Message>
-        </div>
-      </>
+      <div className="container3">
+        <Message greeting="Hello" subject="World" />
+        <Message greeting="Goodbye" subject="World" />
+      </div>
     )
     ReactDOM.createRoot(document.getElementById('root')).render(element)
   </script>
