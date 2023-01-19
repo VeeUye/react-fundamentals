@@ -6,15 +6,8 @@
   <script src="https://unpkg.com/react@18.1.0/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script type="text/babel">
-    const PropTypes = {
-      string(props, propName, componentName) {
-        const type = typeof props[propName]
-        if (type !== 'string') {
-          return new Error('Proptype error, this prop should be a string')
-        }
-      },
-    }
     const Message = ({subject, greeting}) => {
       return (
         <div className="message">
@@ -24,15 +17,15 @@
     }
 
     Message.propTypes = {
-      subject: PropTypes.string,
-      greeting: PropTypes.string,
+      subject: PropTypes.string.isRequired,
+      greeting: PropTypes.string.isRequired,
     }
 
     const element = (
-      <div className="container3">
+      <>
         <Message greeting="Hello" subject="World" />
         <Message greeting="Goodbye" subject="World" />
-      </div>
+      </>
     )
     ReactDOM.createRoot(document.getElementById('root')).render(element)
   </script>
